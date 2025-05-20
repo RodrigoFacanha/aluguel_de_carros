@@ -8,7 +8,6 @@ function mostrarLogin() {
   document.getElementById("login-form").classList.remove("hidden");
 }
 
-// Cadastro simulado (localStorage)
 document.getElementById("cadastro-form")?.addEventListener("submit", (e) => {
   e.preventDefault();
   const email = document.getElementById("novo-email").value;
@@ -20,7 +19,6 @@ document.getElementById("cadastro-form")?.addEventListener("submit", (e) => {
   }
 });
 
-// Login
 document.getElementById("login-form")?.addEventListener("submit", (e) => {
   e.preventDefault();
   const email = document.getElementById("email").value;
@@ -35,18 +33,15 @@ document.getElementById("login-form")?.addEventListener("submit", (e) => {
   }
 });
 
-// Verificar login na tela principal
 if (window.location.pathname.includes("index.html") && !localStorage.getItem("autenticado")) {
   window.location.href = "login.html";
 }
 
-// Função de logout
 function logout() {
   localStorage.removeItem("autenticado");
   window.location.href = "login.html";
 }
 
-// ====== FORMULÁRIO DE ALUGUEL (cidade e marca) ======
 
 const formCarro = document.getElementById('form-carro');
 const resumoDiv = document.getElementById('resumo-aluguel');

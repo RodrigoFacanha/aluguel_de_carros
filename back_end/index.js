@@ -1,45 +1,34 @@
 const express = require('express');
-const { connect } = require('./db'); // importar conexão
+const { connect } = require('./db');
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-let db; // vai guardar a conexão
+let db; 
 
 connect().then(database => {
   db = database;
 
-  // --- ROTAS CRUD usando MongoDB ---
-
-  // Read all
   app.get('/carros', async (req, res) => {
-    try {
-      const carros = await db.collection('carros').find().toArray();
-      res.json(carros);
-    } catch (err) {
-      res.status(500).json({ error: 'Erro ao buscar carros' });
-    }
-  });
+  try {
+    const { marca, cidade } = req.query;
 
-  // Read one
-  app.get('/carros/:id', async (req, res) => {
-    const id = parseInt(req.params.id);
-    try {
-      const carro = await db.collection('carros').findOne({ id: id });
-      if (!carro) return res.status(404).json({ error: 'Carro não encontrado' });
-      res.json(carro);
-    } catch (err) {
-      res.status(500).json({ error: 'Erro ao buscar carro' });
-    }
-  });
+    const filtro = {};
+    if (marca) filtro.marca = marca.toLowerCase(); 
+    if (cidade) filtro.cidade = cidade.toLowerCase(); 
 
-  // Create
+    const carros = await db.collection('carros').find(filtro).toArray();
+    res.json(carros);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao buscar carros' });
+  }
+});
+
   app.post('/carros', async (req, res) => {
     try {
       const { modelo, precoDiaria } = req.body;
 
-      // Para id auto-incrementar, você pode buscar o maior id já salvo
       const ultimoCarro = await db.collection('carros').find().sort({ id: -1 }).limit(1).toArray();
       const id = ultimoCarro.length > 0 ? ultimoCarro[0].id + 1 : 1;
 
@@ -51,7 +40,6 @@ connect().then(database => {
     }
   });
 
-  // Update
   app.put('/carros/:id', async (req, res) => {
     const id = parseInt(req.params.id);
     const { modelo, precoDiaria } = req.body;
@@ -72,7 +60,6 @@ connect().then(database => {
     }
   });
 
-  // Delete
   app.delete('/carros/:id', async (req, res) => {
     const id = parseInt(req.params.id);
 
@@ -87,9 +74,14 @@ connect().then(database => {
     }
   });
 
-  // Iniciar servidor após conectar no DB
   app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
   });
+
+app.listen(port, () => {
+  console.log(`Servidor rodando em http://localhost:${port}`);
+});
+
+
 });
 
