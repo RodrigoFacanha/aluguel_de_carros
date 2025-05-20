@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cruise Go-Aluguel de Carros</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="#">Cruise Go!</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+                    aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+      
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Sobre</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#contato">Contato</a>
+                </li>
+              </ul>
+              <div class="d-flex">
+                <button class="btn btn-danger" onclick="logout()">Sair</button>
+              </div>
+            </div>
+          </div>
+        </nav>
+    </header>
+
+    <h1 class="text-center mb-4">Cruise Go!-Alugue seu carro!</h1>
+    
+    <div class="container py-5">
+      <div id="carouselExampleCaptions" class="carousel slide mb-4" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Honda_Civic_e-HEV_Sport_%28XI%29_%E2%80%93_f_30062024.jpg" class="d-block w-100" alt="Carro 1">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+              <h5>Modelos modernos</h5>
+              <p>Escolha entre vários carros novos para sua nova viagem.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://site.zuldigital.com.br/blog/wp-content/uploads/2021/06/onix_2022.jpg" class="d-block w-100" alt="Carro 2">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+              <h5>Preços competitivos</h5>
+              <p>Alugue seu carro com os melhores valores do mercado.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://www.automaistv.com.br/wp-content/uploads/2024/10/TO8Q59NV-Citroen-Basalt-6-scaled.webp" class="d-block w-100" alt="Carro 3">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded">
+              <h5>Atendimento personalizado</h5>
+              <p>Equipe pronta para te ajudar em cada etapa.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Próximo</span>
+        </button>
+      </div>
+    </div>
+
+        <style>
+          #carouselExampleCaptions .carousel-item img {
+            height: 400px;
+            object-fit: cover;
+          }
+        </style>
+        
+  <div class="container py-5">
+    <div class="text-end mb-3">
+      </div>
+
+    <div class="card p-4 mb-4 shadow-sm">
+      <h2 class="h5 mb-3">Informações sobre o aluguel</h2>
+      <form id="form-carro" class="row g-3">
+        <div class="col-md-6">
+          <label for="cidade-retirada" class="form-label">Cidade de Retirada</label>
+          <input type="text" class="form-control" id="cidade-retirada" placeholder="Ex: Fortaleza" required>
+        </div>
+      
+        <div class="col-md-6">
+          <label for="marca-carro" class="form-label">Marca do Carro</label>
+          <select class="form-select" id="marca-carro" required>
+            <option value="" selected disabled>Escolha uma marca</option>
+            <option value="Chevrolet">Chevrolet</option>
+            <option value="Peugeot">Peugeot</option>
+            <option value="Ford">Ford</option>
+            <option value="Honda">Honda</option>
+            <option value="Hyundai">Hyundai</option>
+          </select>
+        </div>
+      
+        <div class="col-md-12 text-end">
+          <button type="submit" class="btn btn-primary">Continuar</button>
+        </div>
+      </form>      
+
+    <div id="lista-carros" class="row"></div>
+  </div>
+
+  <div id="resumo-aluguel" class="card p-4 mb-4 shadow-sm d-none">
+    <h2 class="h5 mb-3">Resumo da Escolha</h2>
+    <div id="detalhes-resumo"></div>
+    <div class="text-end">
+      <button id="btn-confirmar" class="btn btn-success me-2">Confirmar</button>
+      <button id="btn-editar" class="btn btn-secondary">Editar</button>
+    </div>
+  </div>
+  
+  
+  <footer id="contato" class="card-footer text-center bg-light py-3 mt-5">
+    <div class="container">
+      <small>
+        Cruise Go! - Aluguel de Carros.<br>
+        Contato: contato@cruisego.com | +55 85 99999-9999
+      </small>
+    </div>
+  </footer>
+  
+  
+  <script src="script.js"></script>
+</body>
+
+</html>
